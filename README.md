@@ -1,2 +1,2 @@
 # Code-Project
-i will upload some code project since i am Degree Year 1
+Hi, My name is Xianren and I want to record my codes during I study in University.
