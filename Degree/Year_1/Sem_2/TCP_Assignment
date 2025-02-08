@@ -1,0 +1,155 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <limits>
+#include<iomanip>
+using namespace std;
+ 
+const int MAX_NUM=100;
+string names[MAX_NUM];
+double marks[MAX_NUM];
+int counter=0;
+ 
+void printQuestion(){
+    string name;
+    double mark;
+ 
+    cout << "Please insert your name: ";
+    if (cin.peek() == '\n') {
+        cin.ignore();
+    }
+    getline(cin, name);
+ 
+    while (true) {
+        cout << "Please insert your mark (0 to 100): ";
+        if (cin >> mark && mark >= 0 && mark <= 100) {
+            break;
+        } else {
+            cout << "Invalid mark! Please enter a number between 0 and 100." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+    names[counter]=name;
+    marks[counter]=mark;
+    counter++;
+}
+ 
+double calculateAverage(){
+    double sum=0;
+    for (int i = 0; i < counter; i++){
+        sum += marks[i];
+    }
+ 
+    return sum/counter;
+}
+ 
+void printTable(){
+    cout << "+-----+----------------------------------+--------+" << endl;
+    cout << "| No. |               Name               |  Mark  |"  << endl;
+    cout << "+-----+----------------------------------+--------+" << endl;
+    for (int i = 0; i < counter; i++){
+        cout << "|" << setw(5) << i+1 << "|" << setw(34) << names[i] << "|" << setw(8) << marks[i] << "|" << endl;
+    }
+    cout << "+-----+----------------------------------+--------+" << endl;
+}
+ 
+int main() {
+ 
+    cout << " ___________________________________ " << endl;
+    cout << "|        __      ___  __   _ _   __ |" << endl;
+    cout << "| | | | |__ |   |    |  | | | | |__ |" << endl;
+    cout << "| |_|_| |__ |__ |___ |__| | | | |__ |" << endl;
+    cout << "|___________________________________|" << endl;
+    system ("pause");
+ 
+    char ans;
+ 
+do {
+        system("cls");
+ 
+        // Read names and marks
+ 
+        do {
+            printQuestion();
+ 
+            while (true) {
+                cout << "Do you want to add another record? (y/n): ";
+                cin >> ans;
+ 
+                if (ans == 'y' || ans == 'Y' || ans == 'n' || ans == 'N') {
+                    break;
+                } else {
+                    cout << "Invalid input! Please enter 'y' or 'n'." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    }
+                }
+            }while (ans == 'y' || ans == 'Y');
+ 
+ 
+//print table before sorting
+        cout << endl << "The latest table of mark: " << endl;
+        printTable();
+ 
+//sorting
+        for (int i = 0; i < counter-1; i++){
+            for (int j = 0; j < counter-i-1; j++){
+                if (marks[j] < marks[j+1]){
+                swap(marks[j], marks[j+1]);
+                swap(names[j], names[j+1]);
+                }
+            }
+        }
+ 
+//find the average
+        cout << endl << "The average of exam is: " << calculateAverage() << endl;
+ 
+//print highest mark
+        cout << endl << "The highest mark in this exam is: " << marks[0] << endl << endl;
+ 
+//print lowest mark
+        cout << "The lowest mark in this exam is: " << marks[counter - 1] << endl<<endl;
+ 
+ 
+//print table after sorting
+        while (true) {
+            cout << "Do you want to sort the table by order (y/n): ";
+            cin >> ans;
+ 
+            if (ans == 'y' || ans == 'Y' || ans == 'n' || ans == 'N') {
+                break;
+            } else {
+                cout << "Invalid input! Please enter 'y' or 'n'." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+            }
+ 
+        if (ans == 'y' || ans == 'Y'){
+            cout << endl << "The latest table of mark after sorting: " << endl;
+            printTable();
+        }
+ 
+        while (true) {
+            cout << "Do you want to add another record? (y/n): ";
+            cin >> ans;
+ 
+            if (ans == 'y' || ans == 'Y' || ans == 'n' || ans == 'N') {
+                break;
+            } else {
+                cout << "Invalid input! Please enter 'y' or 'n'." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+            }
+    }while (ans == 'y' || ans == 'Y');
+ 
+    cout << " ---------------------------------------  " << endl;
+    cout << "| ___       __   _             __       | " << endl;
+    cout << "|  |  |__| |__| | | |_/   | | |  | |  | | " << endl;
+    cout << "|  |  |  | |  | | | | |    |  |__| |__| | " << endl;
+    cout << "|_______________________________________| " << endl;
+ 
+    return 0;
+}
